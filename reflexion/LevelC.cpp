@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #include "LevelC.h"
 #include "Utility.h"
 
@@ -15,24 +6,24 @@
 
 unsigned int LEVEL_DATA[] =
 {
-    99, 59, 59,154, 61, 66, 67, 68, 61,154, 59, 59, 59,154, 59, 59, 59, 59, 59, 56,
-    57, 10, 11,140, 10, 10, 10, 10, 11,140, 10, 10, 11,140, 10, 10, 10, 10, 11, 87,
-    57, 37, 39,197,129, 37, 37, 37, 39,140, 37, 37, 39,140, 37,169,128, 37, 39, 87,
-   157,129, 20, 10,168, 37,169,196,141,185,169,128, 39,126,169,196,198, 37, 39, 87,
-    57,168, 37, 37,169,128, 39,126, 11,140, 39,140, 20,168, 39,126,168,169,127,155,
-    57, 37,169,127,182,198, 20,168, 39,183,141,198, 37, 37, 20,168, 37, 20, 11, 87,
-    57, 37, 20, 11,126, 37, 37, 37, 39,140, 10,168,169,127,182,141,129, 37, 39, 87,
-    57, 37, 37, 20,168,169,127,199, 39,140,169,128, 20, 11,126, 10,168, 37, 39, 87,
-   157,141,141,129, 37, 20, 11,126, 39,140, 39,126, 37, 20,168, 37, 37, 37, 39, 87,
-    57, 10, 10,168, 37, 37, 20,168, 39,140, 20,168, 37, 37, 37,169,128, 37, 39, 87,
-    57, 37, 37, 37, 37,169,127,141,141,185, 37, 37, 37, 37,169,127,184,141,141,155,
-    57, 37, 37, 37, 37, 20, 10, 10, 11,140,169,127,199, 37, 20, 10, 10, 10, 11, 87,
-   157,129, 37,169,127,182,129, 37, 39,140, 20, 11,140, 37, 37, 37, 37, 37, 39, 87,
-    57,168, 37, 20, 11,140,168, 37, 39,183,141,141,184,141,129, 37,169,128, 39, 87,
-    57, 37, 37, 37, 39,126, 37, 37, 39,140, 10, 10, 10, 10,168, 37, 39,197,141,155,
-   157,141,141,129, 20,168, 37, 37, 39,140, 37, 37, 37,169,128, 37, 20, 10, 11, 87,
-    57, 10, 10,168, 37, 37,169,128, 39,140, 37, 37, 37, 39,140, 37, 37, 37, 39, 87,
-    84, 85, 85, 85, 85, 85, 85,156, 85,156, 85, 85, 85, 85,156, 85, 85, 85, 85,101
+    23, 45, 45, 10, 56, 57, 45, 59, 56, 10, 45, 45, 45, 10, 45, 45, 45, 45, 45, 24,
+    44,  3,  5, 50,  3,  3,  3,  3,  5, 50,  3,  3,  5, 50,  3,  3,  3,  3,  5, 43,
+    44,  6,  2, 28, 37,  6,  6,  6,  2, 50,  6,  6,  2, 50,  6,  0, 38,  6,  2, 43,
+     8, 37,  4,  3,  1,  6,  0, 30, 49, 16,  0, 38,  2, 35,  0, 30, 29,  6,  2, 43,
+    44,  1,  6,  6,  0, 38,  2, 35,  5, 50,  2, 50,  4,  1,  2, 35,  1,  0, 36,  9,
+    44,  6,  0, 36, 17, 29,  4,  1,  2, 15, 49, 29,  6,  6,  4,  1,  6,  4,  5, 43,
+    44,  6,  4,  5, 35,  6,  6,  6,  2, 50,  3,  1,  0, 36, 17, 49, 37,  6,  2, 43,
+    44,  6,  6,  4,  1,  0, 36, 31,  2, 50,  0, 38,  4,  5, 35,  3,  1,  6,  2, 43,
+     8, 49, 49, 37,  6,  4,  5, 35,  2, 50,  2, 35,  6,  4,  1,  6,  6,  6,  2, 43,
+    44,  3,  3,  1,  6,  6,  4,  1,  2, 50,  4,  1,  6,  6,  6,  0, 38,  6,  2, 43,
+    44,  6,  6,  6,  6,  0, 36, 49, 49, 16,  6,  6,  6,  6,  0, 36, 14, 49, 49,  9,
+    44,  6,  6,  6,  6,  4,  3,  3,  5, 50,  0, 36, 31,  6,  4,  3,  3,  3,  5, 43,
+     8, 37,  6,  0, 36, 17, 37,  6,  2, 50,  4,  5, 50,  6,  6,  6,  6,  6,  2, 43,
+    44,  1,  6,  4,  5, 50,  1,  6,  2, 15, 49, 49, 14, 49, 37,  6,  0, 38,  2, 43,
+    44,  6,  6,  6,  2, 35,  6,  6,  2, 50,  3,  3,  3,  3,  1,  6,  2, 28, 49,  9,
+     8, 49, 49, 37,  4,  1,  6,  6,  2, 50,  6,  6,  6,  0, 38,  6,  4,  3,  5, 43,
+    44,  3,  3,  1,  6,  6,  0, 38,  2, 50,  6,  6,  6,  2, 50,  6,  6,  6,  2, 43,
+    21, 42, 42, 42, 42, 42, 42,  7, 42,  7, 42, 42, 42, 42,  7, 42, 42, 42, 42, 22
 };
 
 LevelC::~LevelC()
@@ -64,10 +55,10 @@ void LevelC::initialise()
     m_scene_skip = false;
     m_is_enemy_off = false;
 
-    m_font_texture_id = Utility::load_texture("assets/font2.png");
+    m_font_texture_id = Utility::load_texture("assets/font.png");
 
-    m_map_texture_id = Utility::load_texture("assets/library_tileset.png");
-    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, m_map_texture_id, 1.0f, 14, 15);
+    m_map_texture_id = Utility::load_texture("assets/map_tileset.png");
+    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, m_map_texture_id, 1.0f, 7, 9);
 
     // ----- Character ----- //
     std::vector<std::vector<std::vector<int>>> character_animations =
@@ -83,12 +74,6 @@ void LevelC::initialise()
             { 0, 1, 2, 3, 4, 5, 6, 7 },     // right
             { 0, 1, 2, 3, 4, 5, 6, 7 },     // up
             { 0, 1, 2, 3, 4, 5, 6, 7 }      // down
-        },
-        {                               // Hurt
-            { 0,  1,  2,  3 },              // left
-            { 0,  1,  2,  3 },              // right
-            { 0,  1,  2,  3 },              // up
-            { 0,  1,  2,  3 }               // down
         }
     };
 
@@ -105,12 +90,6 @@ void LevelC::initialise()
             Utility::load_texture("assets/character/walk/right.png"),
             Utility::load_texture("assets/character/walk/up.png"),
             Utility::load_texture("assets/character/walk/down.png")
-        },
-        {
-            Utility::load_texture("assets/character/hurt/left.png"),
-            Utility::load_texture("assets/character/hurt/right.png"),
-            Utility::load_texture("assets/character/hurt/up.png"),
-            Utility::load_texture("assets/character/hurt/down.png")
         }
     };
 
@@ -125,7 +104,7 @@ void LevelC::initialise()
         0,                         // current animation index
         4,                         // animation column amount
         1,                         // animation row amount
-        0.9f,                      // width
+        0.85f,                     // width
         0.9f,                      // height
         CHARACTER,                 // entity type
         PLAYER,                    // character type
@@ -133,7 +112,7 @@ void LevelC::initialise()
         UP                         // direction
     );
 
-    m_game_state.player->set_position(glm::vec3(5.0f, -16.0f, 0.0f));
+    m_game_state.player->set_position(glm::vec3(5.0f, -16.1f, 0.0f));
 
     // ----- Clone Initialization ----- //
     m_game_state.clone = new Entity(
@@ -146,7 +125,7 @@ void LevelC::initialise()
         0,                         // current animation index
         4,                         // animation column amount
         1,                         // animation row amount
-        0.9f,                      // width
+        0.85f,                     // width
         0.9f,                      // height
         CHARACTER,                 // entity type
         CLONE,                     // character type
@@ -154,7 +133,7 @@ void LevelC::initialise()
         UP                         // direction
     );
 
-    m_game_state.clone->set_position(glm::vec3(13.0f, -16.0f, 0.0f));
+    m_game_state.clone->set_position(glm::vec3(13.0f, -16.1f, 0.0f));
 
     // ----- Enemies Initialization ----- //
     m_game_state.enemies = new Entity[ENEMY_COUNT];
@@ -368,17 +347,25 @@ void LevelC::update(float delta_time)
 
     // ----- Update Entities ----- //
     bool was_pressed = (m_game_state.pressure_plate->get_obstacle_state() == PRESSED);
-    m_game_state.pressure_plate->update(delta_time, m_game_state.clone, *m_game_state.blocks, BLOCK_COUNT, m_game_state.map);
+    m_game_state.pressure_plate->update(delta_time, m_game_state.player, m_game_state.clone, *m_game_state.blocks, BLOCK_COUNT, m_game_state.map);
     if (!was_pressed && m_game_state.pressure_plate->get_obstacle_state() == PRESSED) {
         Mix_PlayChannel(4, m_game_state.on_pressure_plate_sfx, 0);
     }
-    check_plate_pressed();
 
-    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
-    m_game_state.clone->update(delta_time, m_game_state.clone, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
+    // ----- Update Map ----- //
+    check_plate_pressed();
+    check_reveal_exit();
+    update_map();
+
+    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.clone, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
+    m_game_state.clone->update(delta_time, m_game_state.player, m_game_state.clone, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
     for (int i = 0; i < ENEMY_COUNT; i++) {
-        m_game_state.enemies[i].update(delta_time, m_game_state.clone, *m_game_state.blocks, BLOCK_COUNT, m_game_state.map);
+        m_game_state.enemies[i].update(delta_time, m_game_state.player, m_game_state.clone, *m_game_state.blocks, BLOCK_COUNT, m_game_state.map);
     }
+    for (int i = 0; i < BLOCK_COUNT; i++) {
+		m_game_state.clone->resolve_overlap(m_game_state.blocks[i]);
+		m_game_state.player->resolve_overlap(m_game_state.blocks[i]);
+	}
 
     // ----- Enemy Activation ----- //
     if (m_is_enemy_off) {
@@ -477,10 +464,10 @@ void LevelC::check_plate_pressed()
     if (m_game_state.pressure_plate->get_obstacle_state() == PRESSED) {
         m_game_state.enemies[0].activate();
 
-        LEVEL_DATA[69] = 198;
-        LEVEL_DATA[88] = 10;
-        LEVEL_DATA[89] = 168;
-        LEVEL_DATA[109] = 196;
+        LEVEL_DATA[69] = 29;
+        LEVEL_DATA[88] = 3;
+        LEVEL_DATA[89] = 1;
+        LEVEL_DATA[109] = 30;
 
         if (!is_door_open) {
             Mix_PlayChannel(-1, m_game_state.door_mechanic_sfx, 0);
@@ -490,14 +477,46 @@ void LevelC::check_plate_pressed()
     else {
         m_game_state.enemies[0].deactivate();
 
-        LEVEL_DATA[69] = 185;
-        LEVEL_DATA[88] = 11;
-        LEVEL_DATA[89] = 140;
-        LEVEL_DATA[109] = 183;
+        LEVEL_DATA[69] = 16;
+        LEVEL_DATA[88] = 5;
+        LEVEL_DATA[89] = 50;
+        LEVEL_DATA[109] = 15;
 
-        if (is_door_open) is_door_open = false;
+        is_door_open = false;
     }
+}
 
+void LevelC::check_reveal_exit()
+{
+	glm::vec3 exit_coord = glm::vec3(7.0f, 0.0f, 0.0f);
+	float player_dist = calc_distance(m_game_state.player, exit_coord);
+	float clone_dist = calc_distance(m_game_state.clone, exit_coord);
+
+    if (player_dist < clone_dist)
+    {
+        for (int i = 4; i < 9; i++) {
+			LEVEL_DATA[i] = 45;
+        }
+    }
+    else
+    {
+        LEVEL_DATA[4] = 56;
+		LEVEL_DATA[5] = 57;
+        LEVEL_DATA[6] = 58;
+		LEVEL_DATA[7] = 59;
+        LEVEL_DATA[8] = 56;
+    }
+}
+
+float const LevelC::calc_distance(Entity* entity, glm::vec3 target)
+{
+    float dist_x = entity->get_position().x - target.x;
+    float dist_y = entity->get_position().y - target.y;
+    return dist_x * dist_x + dist_y * dist_y;
+}
+
+void LevelC::update_map() 
+{
     delete m_game_state.map;
-    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, m_map_texture_id, 1.0f, 14, 15);
+    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, m_map_texture_id, 1.0f, 7, 9);
 }

@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #include "ControlsScene.h"
 #include "Utility.h"
 
@@ -21,7 +12,7 @@ void ControlsScene::initialise()
     m_scene_skip = false;
     m_is_enemy_off = false;
 
-    m_font_texture_id = Utility::load_texture("assets/font2.png");
+    m_font_texture_id = Utility::load_texture("assets/font.png");
 }
 
 void ControlsScene::update(float delta_time) {

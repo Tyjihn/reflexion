@@ -1,24 +1,12 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #define GL_SILENCE_DEPRECATION
 
 #include "ShaderProgram.h"
 
 void ShaderProgram::load(const char *vertex_shader_file, const char *fragment_shader_file) {
     
-    // create the vertex shader
     m_vertex_shader = load_shader_from_file(vertex_shader_file, GL_VERTEX_SHADER);
-    // create the fragment shader
     m_fragment_shader = load_shader_from_file(fragment_shader_file, GL_FRAGMENT_SHADER);
     
-    // Create the final shader program from our vertex and fragment shaders
     m_program_id = glCreateProgram();
     glAttachShader(m_program_id, m_vertex_shader);
     glAttachShader(m_program_id, m_fragment_shader);
@@ -53,39 +41,31 @@ void ShaderProgram::cleanup()
 
 GLuint ShaderProgram::load_shader_from_file(const std::string &shaderFile, GLenum type)
 {
-    //Open a file stream with the file name
     std::ifstream infile(shaderFile);
     
     if(infile.fail()) {
         std::cout << "Error opening shader file:" << shaderFile << std::endl;
     }
     
-    //Create a string buffer and stream the file to it
     std::stringstream buffer;
     buffer << infile.rdbuf();
     
-    // Load the shader from the contents of the file
     return load_shader_from_string(buffer.str(), type);
 }
 
 GLuint ShaderProgram::load_shader_from_string(const std::string &shaderContents, GLenum type)
 {
-    // Create a shader of specified type
     GLuint shaderID = glCreateShader(type);
     
-    // Get the pointer to the C string from the STL string
     const char *shader_string  = shaderContents.c_str();
     GLint shader_string_length = (GLint) shaderContents.size();
     
-    // Set the shader source to the string and compile shader
     glShaderSource(shaderID, 1, &shader_string, &shader_string_length);
     glCompileShader(shaderID);
     
-    // Check if the shader compiled properly
     GLint compile_success;
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compile_success);
     
-    // If the shader did not compile, print the error to stdout
     if (compile_success == GL_FALSE)
     {
         GLchar messages[512];
@@ -93,7 +73,6 @@ GLuint ShaderProgram::load_shader_from_string(const std::string &shaderContents,
         std::cout << messages << std::endl;
     }
     
-    // return the shader id
     return shaderID;
 }
 

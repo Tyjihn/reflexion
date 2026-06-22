@@ -73,10 +73,6 @@ private:
     bool m_collided_left   = false;
     bool m_collided_right  = false;
 
-    // ----- Block ----- //
-    bool m_activate_obstacle = false;
-    Direction m_obstacle_direction = NO_DIRECTION;
-
 public:
     // ————— STATIC VARIABLES ————— //
     static constexpr int SECONDS_PER_FRAME = 12;
@@ -101,25 +97,22 @@ public:
 
     void draw_sprite_from_texture_atlas(ShaderProgram* program, GLuint texture_id, int index);
     bool const check_collision(Entity* other) const;
+    void resolve_overlap(Entity* other);
     
-    void const check_collision_y(Entity* collidable_entities, int collidable_entity_count, Map *map);
-    void const check_collision_x(Entity* collidable_entities, int collidable_entity_count, Map *map);
+    void check_collision_y(Entity* collidable_entities, int collidable_entity_count, Map* map);
+    void check_collision_x(Entity* collidable_entities, int collidable_entity_count, Map* map);
     
-    void const check_collision_y(Map *map);
-    void const check_collision_x(Map*map);
-    bool const will_collide(glm::vec3 movement, Map* map) const;
-
+    void const check_collision_y(Map* map);
+    void check_collision_x(Entity* clone, Map* map);
     
-    void update(float delta_time, Entity *player, Entity *collidable_entities, int collidable_entity_count, Map *map);
+    void update(float delta_time, Entity* player, Entity* clone, Entity* collidable_entities, int collidable_entity_count, Map* map);
     void render(ShaderProgram* program);
 
-    void ai_activate(Entity *player);
+    void ai_activate(Entity* player);
     void trap_activate(Entity* player, float delta_time);
-    void obstacle_activate();
     void ai_walk();
     void ai_projectile();
     void trap_spike(float delta_time);
-    void obstacle_block();
     
     void normalise_movement() { m_movement = glm::normalize(m_movement); }
 
@@ -128,26 +121,26 @@ public:
     void face_up()    { set_direction(UP);    }
     void face_down()  { set_direction(DOWN);  }
 
-    void move_left(bool will_collide) {
-        if (!will_collide) m_movement.x = -1.0f;
+    void move_left() { 
+        m_movement.x = -1.0f;
         if (m_entity_type != OBSTACLE) face_left();
         if (m_entity_type == CHARACTER) set_character_state(WALK);
     }
 
-    void move_right(bool will_collide) {
-        if (!will_collide) m_movement.x = 1.0f;
+    void move_right() {
+        m_movement.x = 1.0f;
         if (m_entity_type != OBSTACLE) face_right();
         if (m_entity_type == CHARACTER) set_character_state(WALK);
     }
 
-    void move_up(bool will_collide) {
-        if (!will_collide) m_movement.y = 1.0f;
+    void move_up() {
+        m_movement.y = 1.0f;
         if (m_entity_type != OBSTACLE) face_up();
         if (m_entity_type == CHARACTER) set_character_state(WALK);
     }
 
-    void move_down(bool will_collide) {
-        if (!will_collide) m_movement.y = -1.0f;
+    void move_down() {
+        m_movement.y = -1.0f;
         if (m_entity_type != OBSTACLE) face_down();
         if (m_entity_type == CHARACTER) set_character_state(WALK);
     }
@@ -156,21 +149,21 @@ public:
 
     void move_entity(Direction direction)
     {
-        if (direction == UP) move_up(false);
-        else if (direction == DOWN) move_down(false);
-        else if (direction == LEFT) move_left(false);
-        else if (direction == RIGHT) move_right(false);
+        if (direction == UP) move_up();
+        else if (direction == DOWN) move_down();
+        else if (direction == LEFT) move_left();
+        else if (direction == RIGHT) move_right();
     }
 
     // ————— GETTERS ————— //
-    EntityType          const get_entity_type()      const { return m_entity_type;    };
-    AIType              const get_ai_type()          const { return m_ai_type;        };
-    AIState             const get_ai_state()         const { return m_ai_state;       };
+    EntityType          const get_entity_type()      const { return m_entity_type;    }
+    AIType              const get_ai_type()          const { return m_ai_type;        }
+    AIState             const get_ai_state()         const { return m_ai_state;       }
     TrapType            const get_trap_type()        const { return m_trap_type;      }
     TrapState           const get_trap_state()       const { return m_trap_state;     }
     ObstacleType        const get_obstacle_type()    const { return m_obstacle_type;  }
     ObstacleState       const get_obstacle_state()   const { return m_obstacle_state; }
-    Direction           const get_direction()        const { return m_direction;      };
+    Direction           const get_direction()        const { return m_direction;      }
     CharacterState      const get_character_state()  const { return m_character_state; }
     glm::vec3           const get_position()         const { return m_position;       }
     glm::vec3           const get_velocity()         const { return m_velocity;       }
@@ -191,10 +184,12 @@ public:
     void deactivate() { m_is_active = false; };
 
     // ————— SETTERS ————— //
-    void const set_entity_type(EntityType new_entity_type)  { m_entity_type = new_entity_type;};
-    void const set_ai_type(AIType new_ai_type) { m_ai_type = new_ai_type;};
+    void const set_entity_type(EntityType new_entity_type)  { m_entity_type = new_entity_type;}
+    void const set_ai_type(AIType new_ai_type) { m_ai_type = new_ai_type;}
     void const set_position(glm::vec3 new_position) { m_position = new_position; m_initial_position = new_position; }
     void const set_velocity(glm::vec3 new_velocity) { m_velocity = new_velocity; }
+	void const set_velocity_x(float new_x) { m_velocity.x = new_x; }
+	void const set_velocity_y(float new_y) { m_velocity.y = new_y; }
     void const set_acceleration(glm::vec3 new_acceleration) { m_acceleration = new_acceleration; }
     void const set_movement(glm::vec3 new_movement) { m_movement = new_movement; }
     void const set_scale(glm::vec3 new_scale) { m_scale = new_scale; }
@@ -216,6 +211,8 @@ public:
 
         m_character_state = new_character_state;
 
+        m_animation_index = 0;
+
         if (!m_animations[new_character_state].empty() && m_animations.size() > new_character_state)
         {
             m_animation_indices = m_animations[new_character_state][m_direction].data();
@@ -236,6 +233,8 @@ public:
 
         m_ai_state = new_ai_state;
 
+        m_animation_index = 0;
+
         if (!m_animations[new_ai_state].empty() && m_animations.size() > new_ai_state)
         {
             m_animation_indices = m_animations[new_ai_state][m_direction].data();
@@ -255,6 +254,8 @@ public:
         if (m_trap_state == new_obstacle_state) return;
 
         m_trap_state = new_obstacle_state;
+
+        m_animation_index = 0;
 
         if (!m_obstacle_animations.empty() && m_obstacle_animations.size() > new_obstacle_state)
         {

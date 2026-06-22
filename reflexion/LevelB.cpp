@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #include "LevelB.h"
 #include "Utility.h"
 
@@ -15,23 +6,23 @@
 
 static unsigned int LEVEL_DATA[] =
 {
-    99, 59, 59, 59, 59, 59,154, 59,154, 59, 59, 61, 66, 67, 68, 61, 59, 59, 56,
-    57, 10, 10, 10, 10, 11,140, 11,140, 10, 10, 10, 10, 10, 10, 10, 10, 11, 87,
-    57, 37, 37, 37, 37, 39,126, 39,140, 37, 37, 37, 37, 37, 37, 37, 37, 39, 87,
-   157,141,129, 37, 37, 20,168, 39,140, 37, 37, 37, 37, 37, 37, 37, 37, 39, 87,
-    57, 10,168, 37, 37, 37, 37, 39,140, 37, 37, 37, 37, 37, 37, 37, 37, 39, 87,
-    57,169,128, 37, 37, 37, 37, 39,140, 37,169,196,141,141,141,182,129, 39, 87,
-    57, 39,197,199, 37, 37, 37, 39,140,169,127,198, 10, 10, 11,140,168, 39, 87,
-    57, 20, 11,197,129,169,127,141,185, 20, 10,168, 37, 37, 39,183,141,141,155,
-    57, 37, 20, 10,168, 20, 10, 11,140, 37, 37, 37, 37, 37, 39,126, 10, 11, 87,
-    57,169,128, 37, 37,169,128, 39,183,141,182,141,129, 37, 20,168, 37, 39, 87,
-    57, 39,140, 37, 37, 39,126, 39,140, 11,140, 10,168, 37, 37, 37, 37, 39, 87,
-    57, 39,140, 37, 37, 20,168, 39,140, 39,197,141,129,169,127,141,141,141,155,
-    57, 39,126,169,127,141,199, 39,140, 20, 10, 10,168, 20, 10, 10, 10, 11, 87,
-    57, 20,168, 20, 10, 11,140, 39,140, 37, 37, 37, 37, 37, 37, 37, 37, 39, 87,
-    57, 37, 37, 37, 37, 39,140, 39,140, 37, 37, 37, 37, 37, 37, 37, 37, 39, 87,
-    57, 37, 37, 37, 37, 39,140, 39,140, 37, 37, 37, 37, 37, 37, 37, 37, 39, 87,
-    84, 85, 85, 85, 85, 85,156, 85,156, 85, 85, 85, 85, 85, 85, 85, 85, 85,101,
+    23, 45, 45, 45, 45, 45, 10, 45, 10, 45, 45, 56, 57, 58, 59, 56, 45, 45, 24,
+    44,  3,  3,  3,  3,  5, 50,  5, 50,  3,  3,  3,  3,  3,  3,  3,  3,  5, 43,
+    44,  6,  6,  6,  6,  2, 35,  2, 50,  6,  6,  6,  6,  6,  6,  6,  6,  2, 43,
+     8, 49, 37,  6,  6,  4,  1,  2, 50,  6,  6,  6,  6,  6,  6,  6,  6,  2, 43,
+    44,  3,  1,  6,  6,  6,  6,  2, 50,  6,  6,  6,  6,  6,  6,  6,  6,  2, 43,
+    44,  0, 38,  6,  6,  6,  6,  2, 50,  6,  0, 30, 49, 49, 49, 17, 37,  2, 43,
+    44,  2, 28, 31,  6,  6,  6,  2, 50,  0, 36, 29,  3,  3,  5, 50,  1,  2, 43,
+    44,  4,  5, 28, 37,  0, 36, 49, 16,  4,  3,  1,  6,  6,  2, 15, 49, 49,  9,
+    44,  6,  4,  3,  1,  4,  3,  5, 50,  6,  6,  6,  6,  6,  2, 35,  3,  5, 43,
+    44,  0, 38,  6,  6,  0, 38,  2, 15, 49, 17, 49, 37,  6,  4,  1,  6,  2, 43,
+    44,  2, 50,  6,  6,  2, 35,  2, 50,  5, 50,  3,  1,  6,  6,  6,  6,  2, 43,
+    44,  2, 50,  6,  6,  4,  1,  2, 50,  2, 28, 49, 37,  0, 36, 49, 49, 49,  9,
+    44,  2, 35,  0, 36, 49, 31,  2, 50,  4,  3,  3,  1,  4,  3,  3,  3,  5, 43,
+    44,  4,  1,  4,  3,  5, 50,  2, 50,  6,  6,  6,  6,  6,  6,  6,  6,  2, 43,
+    44,  6,  6,  6,  6,  2, 50,  2, 50,  6,  6,  6,  6,  6,  6,  6,  6,  2, 43,
+    44,  6,  6,  6,  6,  2, 50,  2, 50,  6,  6,  6,  6,  6,  6,  6,  6,  2, 43,
+    21, 42, 42, 42, 42, 42,  7, 42,  7, 42, 42, 42, 42, 42, 42, 42, 42, 42, 22,
 };
 
 LevelB::~LevelB()
@@ -60,10 +51,10 @@ void LevelB::initialise()
     m_scene_skip = false;
     m_is_enemy_off = false;
 
-    m_font_texture_id = Utility::load_texture("assets/font2.png");
+    m_font_texture_id = Utility::load_texture("assets/font.png");
 
-    GLuint map_texture_id = Utility::load_texture("assets/library_tileset.png");
-    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, map_texture_id, 1.0f, 14, 15);
+    GLuint map_texture_id = Utility::load_texture("assets/map_tileset.png");
+    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, map_texture_id, 1.0f, 7, 9);
 
     // ----- Character ----- //
     std::vector<std::vector<std::vector<int>>> character_animations =
@@ -79,12 +70,6 @@ void LevelB::initialise()
             { 0, 1, 2, 3, 4, 5, 6, 7 },     // right
             { 0, 1, 2, 3, 4, 5, 6, 7 },     // up
             { 0, 1, 2, 3, 4, 5, 6, 7 }      // down
-        },
-        {                               // Hurt
-            { 0,  1,  2,  3 },              // left
-            { 0,  1,  2,  3 },              // right
-            { 0,  1,  2,  3 },              // up
-            { 0,  1,  2,  3 }               // down
         }
     };
 
@@ -101,12 +86,6 @@ void LevelB::initialise()
             Utility::load_texture("assets/character/walk/right.png"),
             Utility::load_texture("assets/character/walk/up.png"),
             Utility::load_texture("assets/character/walk/down.png")
-        },
-        {
-            Utility::load_texture("assets/character/hurt/left.png"),
-            Utility::load_texture("assets/character/hurt/right.png"),
-            Utility::load_texture("assets/character/hurt/up.png"),
-            Utility::load_texture("assets/character/hurt/down.png")
         }
     };
 
@@ -121,7 +100,7 @@ void LevelB::initialise()
         0,                         // current animation index
         4,                         // animation column amount
         1,                         // animation row amount
-        0.9f,                      // width
+        0.85f,                     // width
         0.9f,                      // height
         CHARACTER,                 // entity type
         PLAYER,                    // character type
@@ -142,7 +121,7 @@ void LevelB::initialise()
         0,                         // current animation index
         4,                         // animation column amount
         1,                         // animation row amount
-        0.9f,                      // width
+        0.85f,                     // width
         0.9f,                      // height
         CHARACTER,                 // entity type
         CLONE,                     // character type
@@ -310,11 +289,14 @@ void LevelB::update(float delta_time)
     else Mix_HaltChannel(3);
 
     // ----- Update Entities ----- //
-    m_game_state.player->update(delta_time, m_game_state.player, NULL, NULL, m_game_state.map);
-    m_game_state.clone->update(delta_time, m_game_state.clone, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
+    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.clone, nullptr, 0, m_game_state.map);
+    m_game_state.clone->update(delta_time, m_game_state.player, m_game_state.clone, m_game_state.enemies, ENEMY_COUNT, m_game_state.map);
     for (int i = 0; i < ENEMY_COUNT; i++) {
-        m_game_state.enemies[i].update(delta_time, m_game_state.clone, *m_game_state.blocks, BLOCK_COUNT, m_game_state.map);
+        m_game_state.enemies[i].update(delta_time, m_game_state.player, m_game_state.clone, *m_game_state.blocks, BLOCK_COUNT, m_game_state.map);
     }
+    for (int i = 0; i < BLOCK_COUNT; i++) {
+        m_game_state.clone->resolve_overlap(m_game_state.blocks[i]);
+	}
 
     // ----- Player Camera ----- //
     *m_view_matrix = glm::mat4(1.0f);

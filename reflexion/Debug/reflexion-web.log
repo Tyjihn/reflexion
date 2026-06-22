@@ -1,0 +1,119 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (reflexion.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  GameStart.cpp
+C:\reflexion-web\reflexion-web\reflexion-web\Entity.h(216,79): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'GameStart.cpp')
+  
+C:\reflexion-web\reflexion-web\reflexion-web\Entity.h(238,72): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'GameStart.cpp')
+  
+C:\reflexion-web\reflexion-web\reflexion-web\Entity.h(260,76): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'GameStart.cpp')
+  
+  main.cpp
+C:\reflexion-web\reflexion-web\reflexion-web\Entity.h(216,79): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'main.cpp')
+  
+C:\reflexion-web\reflexion-web\reflexion-web\Entity.h(238,72): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'main.cpp')
+  
+C:\reflexion-web\reflexion-web\reflexion-web\Entity.h(260,76): warning C4018: '>': signed/unsigned mismatch
+  (compiling source file 'main.cpp')
+  
+C:\reflexion-web\reflexion-web\reflexion-web\main.cpp(50,31): warning C4244: 'initializing': conversion from 'const float' to 'const int', possible loss of data
+C:\reflexion-web\reflexion-web\reflexion-web\main.cpp(51,31): warning C4244: 'initializing': conversion from 'const float' to 'const int', possible loss of data
+C:\reflexion-web\reflexion-web\reflexion-web\main.cpp(64,20): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
+C:\reflexion-web\reflexion-web\reflexion-web\main.cpp(65,21): warning C4244: 'initializing': conversion from 'const float' to 'int', possible loss of data
+C:\reflexion-web\reflexion-web\reflexion-web\main.cpp(200,53): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\reflexion-web\reflexion-web\reflexion-web\main.cpp(200,39): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+  Generating Code...
+Effects.obj : error LNK2019: unresolved external symbol __imp__glDrawArrays@12 referenced in function "public: void __thiscall Effects::draw_overlay(void)" (?draw_overlay@Effects@@QAEXXZ)
+Entity.obj : error LNK2001: unresolved external symbol __imp__glDrawArrays@12
+Map.obj : error LNK2001: unresolved external symbol __imp__glDrawArrays@12
+Utility.obj : error LNK2001: unresolved external symbol __imp__glDrawArrays@12
+Effects.obj : error LNK2019: unresolved external symbol __imp____glewDisableVertexAttribArray referenced in function "public: void __thiscall Effects::draw_overlay(void)" (?draw_overlay@Effects@@QAEXXZ)
+Entity.obj : error LNK2001: unresolved external symbol __imp____glewDisableVertexAttribArray
+Map.obj : error LNK2001: unresolved external symbol __imp____glewDisableVertexAttribArray
+Utility.obj : error LNK2001: unresolved external symbol __imp____glewDisableVertexAttribArray
+Effects.obj : error LNK2019: unresolved external symbol __imp____glewEnableVertexAttribArray referenced in function "public: void __thiscall Effects::draw_overlay(void)" (?draw_overlay@Effects@@QAEXXZ)
+Entity.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+Map.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+Utility.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+Utility.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+Effects.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+main.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+Map.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+ShaderProgram.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+Effects.obj : error LNK2019: unresolved external symbol __imp____glewVertexAttribPointer referenced in function "public: void __thiscall Effects::draw_overlay(void)" (?draw_overlay@Effects@@QAEXXZ)
+Entity.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+Map.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+Utility.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+EndGame.obj : error LNK2019: unresolved external symbol __imp__glClear@4 referenced in function "public: virtual void __thiscall EndGame::render(class ShaderProgram *,class ShaderProgram *,class ShaderProgram *)" (?render@EndGame@@UAEXPAVShaderProgram@@00@Z)
+main.obj : error LNK2001: unresolved external symbol __imp__glClear@4
+EndGame.obj : error LNK2019: unresolved external symbol __imp__glClearColor@16 referenced in function "public: virtual void __thiscall EndGame::render(class ShaderProgram *,class ShaderProgram *,class ShaderProgram *)" (?render@EndGame@@UAEXPAVShaderProgram@@00@Z)
+main.obj : error LNK2001: unresolved external symbol __imp__glClearColor@16
+EndGame.obj : error LNK2019: unresolved external symbol _Mix_FreeChunk referenced in function "public: __thiscall EndGame::~EndGame(void)" (??1EndGame@@QAE@XZ)
+LevelA.obj : error LNK2001: unresolved external symbol _Mix_FreeChunk
+LevelB.obj : error LNK2001: unresolved external symbol _Mix_FreeChunk
+LevelC.obj : error LNK2001: unresolved external symbol _Mix_FreeChunk
+EndGame.obj : error LNK2019: unresolved external symbol _Mix_HaltMusic referenced in function "public: virtual void __thiscall EndGame::initialise(void)" (?initialise@EndGame@@UAEXXZ)
+main.obj : error LNK2001: unresolved external symbol _Mix_HaltMusic
+Entity.obj : error LNK2019: unresolved external symbol __imp__glBindTexture@8 referenced in function "public: void __thiscall Entity::draw_sprite_from_texture_atlas(class ShaderProgram *,unsigned int,int)" (?draw_sprite_from_texture_atlas@Entity@@QAEXPAVShaderProgram@@IH@Z)
+Map.obj : error LNK2001: unresolved external symbol __imp__glBindTexture@8
+Utility.obj : error LNK2001: unresolved external symbol __imp__glBindTexture@8
+LevelA.obj : error LNK2019: unresolved external symbol _SDL_RWFromFile referenced in function "public: virtual void __thiscall LevelA::initialise(void)" (?initialise@LevelA@@UAEXXZ)
+LevelB.obj : error LNK2001: unresolved external symbol _SDL_RWFromFile
+LevelC.obj : error LNK2001: unresolved external symbol _SDL_RWFromFile
+LevelA.obj : error LNK2019: unresolved external symbol _Mix_OpenAudio referenced in function "public: virtual void __thiscall LevelA::initialise(void)" (?initialise@LevelA@@UAEXXZ)
+LevelB.obj : error LNK2001: unresolved external symbol _Mix_OpenAudio
+LevelC.obj : error LNK2001: unresolved external symbol _Mix_OpenAudio
+main.obj : error LNK2001: unresolved external symbol _Mix_OpenAudio
+LevelA.obj : error LNK2019: unresolved external symbol _Mix_LoadWAV_RW referenced in function "public: virtual void __thiscall LevelA::initialise(void)" (?initialise@LevelA@@UAEXXZ)
+LevelB.obj : error LNK2001: unresolved external symbol _Mix_LoadWAV_RW
+LevelC.obj : error LNK2001: unresolved external symbol _Mix_LoadWAV_RW
+LevelB.obj : error LNK2019: unresolved external symbol _Mix_PlayChannelTimed referenced in function "public: virtual void __thiscall LevelB::update(float)" (?update@LevelB@@UAEXM@Z)
+LevelC.obj : error LNK2001: unresolved external symbol _Mix_PlayChannelTimed
+main.obj : error LNK2001: unresolved external symbol _Mix_PlayChannelTimed
+LevelB.obj : error LNK2019: unresolved external symbol _Mix_HaltChannel referenced in function "public: virtual void __thiscall LevelB::update(float)" (?update@LevelB@@UAEXM@Z)
+LevelC.obj : error LNK2001: unresolved external symbol _Mix_HaltChannel
+main.obj : error LNK2001: unresolved external symbol _Mix_HaltChannel
+LevelB.obj : error LNK2019: unresolved external symbol _Mix_Playing referenced in function "public: virtual void __thiscall LevelB::update(float)" (?update@LevelB@@UAEXM@Z)
+LevelC.obj : error LNK2001: unresolved external symbol _Mix_Playing
+main.obj : error LNK2001: unresolved external symbol _Mix_Playing
+main.obj : error LNK2019: unresolved external symbol __imp__glBlendFunc@8 referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol __imp__glEnable@4 referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol __imp__glViewport@16 referenced in function "void __cdecl window_resize(int,int)" (?window_resize@@YAXHH@Z)
+main.obj : error LNK2019: unresolved external symbol __imp__glewInit@0 referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _Mix_LoadMUS referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _Mix_FreeMusic referenced in function "void __cdecl shutdown(void)" (?shutdown@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _Mix_PlayMusic referenced in function "void __cdecl switch_to_scene(class Scene *)" (?switch_to_scene@@YAXPAVScene@@@Z)
+main.obj : error LNK2019: unresolved external symbol _SDL_CreateWindow referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GetWindowSize referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GL_CreateContext referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GL_MakeCurrent referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GL_GetCurrentContext referenced in function "void __cdecl process_input(void)" (?process_input@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GL_SwapWindow referenced in function "void __cdecl render(void)" (?render@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GetKeyboardState referenced in function "void __cdecl player_movement(void)" (?player_movement@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_PollEvent referenced in function "void __cdecl process_input(void)" (?process_input@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_GetTicks referenced in function "void __cdecl process_input(void)" (?process_input@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_Init referenced in function "void __cdecl initialise(void)" (?initialise@@YAXXZ)
+main.obj : error LNK2019: unresolved external symbol _SDL_Quit referenced in function "void __cdecl shutdown(void)" (?shutdown@@YAXXZ)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewAttachShader referenced in function "public: void __thiscall ShaderProgram::load(char const *,char const *)" (?load@ShaderProgram@@QAEXPBD0@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewCompileShader referenced in function "private: unsigned int __thiscall ShaderProgram::load_shader_from_string(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?load_shader_from_string@ShaderProgram@@AAEIABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewCreateProgram referenced in function "public: void __thiscall ShaderProgram::load(char const *,char const *)" (?load@ShaderProgram@@QAEXPBD0@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewCreateShader referenced in function "private: unsigned int __thiscall ShaderProgram::load_shader_from_string(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?load_shader_from_string@ShaderProgram@@AAEIABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewDeleteProgram referenced in function "private: void __thiscall ShaderProgram::cleanup(void)" (?cleanup@ShaderProgram@@AAEXXZ)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewDeleteShader referenced in function "private: void __thiscall ShaderProgram::cleanup(void)" (?cleanup@ShaderProgram@@AAEXXZ)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewGetAttribLocation referenced in function "public: void __thiscall ShaderProgram::load(char const *,char const *)" (?load@ShaderProgram@@QAEXPBD0@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewGetProgramiv referenced in function "public: void __thiscall ShaderProgram::load(char const *,char const *)" (?load@ShaderProgram@@QAEXPBD0@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewGetShaderInfoLog referenced in function "private: unsigned int __thiscall ShaderProgram::load_shader_from_string(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?load_shader_from_string@ShaderProgram@@AAEIABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewGetShaderiv referenced in function "private: unsigned int __thiscall ShaderProgram::load_shader_from_string(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?load_shader_from_string@ShaderProgram@@AAEIABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewGetUniformLocation referenced in function "public: void __thiscall ShaderProgram::load(char const *,char const *)" (?load@ShaderProgram@@QAEXPBD0@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewLinkProgram referenced in function "public: void __thiscall ShaderProgram::load(char const *,char const *)" (?load@ShaderProgram@@QAEXPBD0@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewShaderSource referenced in function "private: unsigned int __thiscall ShaderProgram::load_shader_from_string(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,unsigned int)" (?load_shader_from_string@ShaderProgram@@AAEIABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@I@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewUniform4f referenced in function "public: void __thiscall ShaderProgram::set_colour(float,float,float,float)" (?set_colour@ShaderProgram@@QAEXMMMM@Z)
+ShaderProgram.obj : error LNK2019: unresolved external symbol __imp____glewUniformMatrix4fv referenced in function "public: void __thiscall ShaderProgram::set_model_matrix(struct glm::mat<4,4,float,0> const &)" (?set_model_matrix@ShaderProgram@@QAEXABU?$mat@$03$03M$0A@@glm@@@Z)
+Utility.obj : error LNK2019: unresolved external symbol __imp__glGenTextures@8 referenced in function "public: static unsigned int __cdecl Utility::load_texture(char const *)" (?load_texture@Utility@@SAIPBD@Z)
+Utility.obj : error LNK2019: unresolved external symbol __imp__glTexImage2D@36 referenced in function "public: static unsigned int __cdecl Utility::load_texture(char const *)" (?load_texture@Utility@@SAIPBD@Z)
+Utility.obj : error LNK2019: unresolved external symbol __imp__glTexParameteri@12 referenced in function "public: static unsigned int __cdecl Utility::load_texture(char const *)" (?load_texture@Utility@@SAIPBD@Z)
+MSVCRTD.lib(exe_winmain.obj) : error LNK2019: unresolved external symbol _WinMain@16 referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\reflexion-web\reflexion-web\Debug\reflexion-web.exe : fatal error LNK1120: 53 unresolved externals
