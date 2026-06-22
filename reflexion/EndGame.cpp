@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #include "EndGame.h"
 #include "Utility.h"
 
@@ -24,7 +15,7 @@ void EndGame::initialise()
     m_game_state.next_scene_id = -1;
 
     // ----- Text ----- //
-    m_font_texture_id = Utility::load_texture("assets/font2.png");
+    m_font_texture_id = Utility::load_texture("assets/font.png");
 
     // ----- BGM and SFX ----- //
     Mix_HaltMusic(); // Stop BGM

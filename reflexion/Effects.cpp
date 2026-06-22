@@ -1,17 +1,7 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #include "Effects.h"
 
 Effects::Effects(glm::mat4 projection_matrix, glm::mat4 view_matrix) :  m_current_effect(NONE), m_alpha(1.0f), m_effect_speed(1.0f), m_size(20.0f)
 {
-    // Non textured Shader
     m_shader_program.load("shaders/vertex.glsl", "shaders/fragment.glsl");
     m_shader_program.set_projection_matrix(projection_matrix);
     m_shader_program.set_view_matrix(view_matrix);
@@ -59,8 +49,7 @@ void Effects::update(float delta_time)
    switch (m_current_effect)
    {
        case NONE: break;
-           
-           // Fades
+
        case FADEIN:
            m_alpha -= delta_time * m_effect_speed;
            if (m_alpha <= 0) m_current_effect = NONE;

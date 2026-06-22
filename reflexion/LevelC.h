@@ -22,4 +22,7 @@ public:
     void render(ShaderProgram* program, ShaderProgram* clone_program, ShaderProgram* map_program) override;
     void player_death();
     void check_plate_pressed();
+    void check_reveal_exit();
+    float const calc_distance(Entity* entity, glm::vec3 target);
+    void update_map();
 };

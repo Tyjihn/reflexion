@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #include "UI.h"
 
 UI::UI() : TOTAL_LIVES(0), m_heart_texture_id(0), hearts(nullptr)
@@ -58,7 +49,7 @@ void UI::update(glm::mat4 *view_matrix, glm::mat4 *projection_matrix, int player
 		float y_pos = (camera_pos.y + screen_height / 2) + y_offset;
         hearts[i].set_position(glm::vec3(x_pos, y_pos, 0.0f));
 
-		hearts[i].update(NULL, NULL, NULL, NULL, NULL);
+		hearts[i].update(NULL, NULL, NULL, NULL, NULL, NULL);
     }
 }
 

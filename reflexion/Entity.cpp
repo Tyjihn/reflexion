@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #define GL_SILENCE_DEPRECATION
 #define STB_IMAGE_IMPLEMENTATION
 
@@ -22,9 +13,9 @@
 #include "ShaderProgram.h"
 #include "Entity.h"
 
-// ------------ DEBUG -----------
+#ifdef _WIN32
 #include <windows.h>
-// --------------
+#endif
 
 void Entity::ai_activate(Entity* player)
 {
@@ -52,21 +43,6 @@ void Entity::trap_activate(Entity* player, float delta_time)
             trap_spike(delta_time);
             break;
         
-        default:
-            break;
-    }
-}
-
-void Entity::obstacle_activate()
-{
-    switch (m_obstacle_type) {
-        case BLOCK:
-            obstacle_block();
-            break;
-
-        case PRESSURE_PLATE:
-            break;
-
         default:
             break;
     }
@@ -106,30 +82,10 @@ void Entity::ai_walk()
 void Entity::ai_projectile()
 {
     set_ai_state(MOVING);
-    if (m_direction == LEFT)
-    {
-        if (m_collided_left) m_position = m_initial_position;
-        m_movement = glm::vec3(-1.0f, 0.0f, 0.0f);
-        face_left();
-    }
-    else if (m_direction == RIGHT)
-    {
-        if (m_collided_right) m_position = m_initial_position;
-        m_movement = glm::vec3(1.0f, 0.0f, 0.0f);
-        face_right();
-    }
-    else if (m_direction == DOWN)
-    {
-        if (m_collided_bottom) m_position = m_initial_position;
-        m_movement = glm::vec3(0.0f, -1.0f, 0.0f);
-        face_down();
-    }
-    else if (m_direction == UP)
-    {
-        if (m_collided_top) m_position = m_initial_position;
-        m_movement = glm::vec3(0.0f, 1.0f, 0.0f);
-        face_up();
-    }
+
+    if (m_direction == LEFT && m_collided_left || m_direction == RIGHT && m_collided_right
+        || m_direction == DOWN && m_collided_bottom || m_direction == UP && m_collided_top)
+            m_position = m_initial_position;
 }
 
 void Entity::trap_spike(float delta_time)
@@ -171,14 +127,6 @@ void Entity::trap_spike(float delta_time)
         default:
             break;
     }
-}
-
-void Entity::obstacle_block()
-{
-    if (m_obstacle_direction == DOWN) move_down(false);
-    else if (m_obstacle_direction == UP) move_up(false);
-    else if (m_obstacle_direction == LEFT) move_left(false);
-    else if (m_obstacle_direction == RIGHT) move_right(false);
 }
 
 // Default constructor
@@ -314,7 +262,27 @@ bool const Entity::check_collision(Entity* other) const
     return x_distance < 0.0f && y_distance < 0.0f;
 }
 
-void const Entity::check_collision_y(Entity *collidable_entities, int collidable_entity_count, Map *map)
+void Entity::resolve_overlap(Entity* other) {
+    if (check_collision(other))
+    {
+        float x_distance = fabs(m_position.x - other->m_position.x);
+        float y_distance = fabs(m_position.y - other->m_position.y);
+        float x_overlap = fabs(x_distance - (m_width / 2.0f) - (other->m_width / 2.0f));
+        float y_overlap = fabs(y_distance - (m_height / 2.0f) - (other->m_height / 2.0f));
+        if (x_overlap < y_overlap)
+        {
+            if (m_position.x > other->m_position.x) m_position.x += x_overlap;
+            else m_position.x -= x_overlap;
+        }
+        else
+        {
+            if (m_position.y > other->m_position.y) m_position.y += y_overlap;
+            else m_position.y -= y_overlap;
+        }
+    }
+}
+
+void Entity::check_collision_y(Entity *collidable_entities, int collidable_entity_count, Map *map)
 {
     for (int i = 0; i < collidable_entity_count; i++)
     {
@@ -327,51 +295,35 @@ void const Entity::check_collision_y(Entity *collidable_entities, int collidable
             float y_overlap = fabs(y_distance - (m_height / 2.0f) - (collidable_entity->m_height / 2.0f));
             if (m_velocity.y > 0)
             {
-                // Block Movement
-                if (collidable_entity->get_obstacle_type() == BLOCK && m_entity_type == CHARACTER) {
-                    collidable_entity->m_obstacle_direction = UP;
-                    collidable_entity->m_activate_obstacle = true;
-                    if (!(collidable_entity->will_collide(glm::vec3(0.0f, 1.0f, 0.0f), map))) {
-                        m_collided_top = false;
-                    }
-                    else {
-                        m_position.y -= y_overlap;
-                        m_velocity.y = 0;
-                        m_collided_top = true;
-                    }
-                }
-                else {
+                if (collidable_entity->get_obstacle_type() != BLOCK)
+                {
                     m_position.y -= y_overlap;
                     m_velocity.y = 0;
-                    m_collided_top = true;
                 }
+                else if (m_entity_type == CHARACTER)
+                {
+					collidable_entity->move_up();
+                }
+                m_collided_top = true;
             }
             else if (m_velocity.y < 0)
             {
-                // Block Movement
-                if (collidable_entity->get_obstacle_type() == BLOCK && m_entity_type == CHARACTER) {
-                    collidable_entity->m_obstacle_direction = DOWN;
-                    collidable_entity->m_activate_obstacle = true;
-                    if (!(collidable_entity->will_collide(glm::vec3(0.0f, -1.0f, 0.0f), map))) {
-                        m_collided_bottom = false;
-                    }
-                    else {
-                        m_position.y += y_overlap;
-                        m_velocity.y = 0;
-                        m_collided_bottom = true;
-                    }
-                }
-                else {
+                if (collidable_entity->get_obstacle_type() != BLOCK)
+                {
                     m_position.y += y_overlap;
                     m_velocity.y = 0;
-                    m_collided_bottom = true;
                 }
+                else if (m_entity_type == CHARACTER)
+                {
+                    collidable_entity->move_down();
+                }
+                m_collided_bottom = true;
             }
         }
     }
 }
 
-void const Entity::check_collision_x(Entity *collidable_entities, int collidable_entity_count, Map *map)
+void Entity::check_collision_x(Entity *collidable_entities, int collidable_entity_count, Map *map)
 {
     for (int i = 0; i < collidable_entity_count; i++)
     {
@@ -384,45 +336,29 @@ void const Entity::check_collision_x(Entity *collidable_entities, int collidable
             float x_overlap = fabs(x_distance - (m_width / 2.0f) - (collidable_entity->m_width / 2.0f));
             if (m_velocity.x > 0)
             {
-                // Block Movement
-                if (collidable_entity->get_obstacle_type() == BLOCK && m_entity_type == CHARACTER) {
-                    collidable_entity->m_obstacle_direction = RIGHT;
-                    collidable_entity->m_activate_obstacle = true;
-                    if (!(collidable_entity->will_collide(glm::vec3(1.0f, 0.0f, 0.0f), map))) {
-                        m_collided_right = false;
-                    }
-                    else {
-                        m_position.x -= x_overlap;
-                        m_velocity.x = 0;
-                        m_collided_right = true;
-                    }
-                }
-                else {
+                if (collidable_entity->get_obstacle_type() != BLOCK)
+                {
                     m_position.x -= x_overlap;
                     m_velocity.x = 0;
-                    m_collided_right = true;
                 }
+                else if (m_entity_type == CHARACTER)
+                {
+					collidable_entity->move_right();
+                }
+                m_collided_right = true;
             }
             else if (m_velocity.x < 0)
             {
-                // Block Movement
-                if (collidable_entity->get_obstacle_type() == BLOCK && m_entity_type == CHARACTER) {
-                    collidable_entity->m_obstacle_direction = LEFT;
-                    collidable_entity->m_activate_obstacle = true;
-                    if (!(collidable_entity->will_collide(glm::vec3(-1.0f, 0.0f, 0.0f), map))) {
-                        m_collided_left = false;
-                    }
-                    else {
-                        m_position.x += x_overlap;
-                        m_velocity.x = 0;
-                        m_collided_left = true;
-                    }
-                }
-                else {
+                if (collidable_entity->get_obstacle_type() != BLOCK)
+                {
                     m_position.x += x_overlap;
                     m_velocity.x = 0;
-                    m_collided_left = true;
                 }
+                else if (m_entity_type == CHARACTER)
+                {
+                    collidable_entity->move_left();
+                }
+                m_collided_left = true;
             }
         }
     }
@@ -482,7 +418,7 @@ void const Entity::check_collision_y(Map* map)
     }
 }
 
-void const Entity::check_collision_x(Map* map)
+void Entity::check_collision_x(Entity* clone, Map* map)
 {
     float x_offset = (m_width / 2) * 0.85f;
 
@@ -502,18 +438,33 @@ void const Entity::check_collision_x(Map* map)
         m_position.x += penetration_x;
         m_velocity.x = 0;
         m_collided_left = true;
+        if (m_character_type == PLAYER)
+        {
+            clone->set_position(clone->get_position() - glm::vec3(penetration_x, 0, 0));
+            clone->set_velocity_x(0);
+        }
     }
     else if (map->is_solid(left_top, &penetration_x, &penetration_y) && m_velocity.x < 0)
     {
         m_position.x += penetration_x;
         m_velocity.x = 0;
         m_collided_left = true;
+        if (m_character_type == PLAYER)
+        {
+            clone->set_position(clone->get_position() - glm::vec3(penetration_x, 0, 0));
+            clone->set_velocity_x(0);
+        }
     }
     else if (map->is_solid(left_bottom, &penetration_x, &penetration_y) && m_velocity.x < 0)
     {
         m_position.x += penetration_x;
         m_velocity.x = 0;
         m_collided_left = true;
+        if (m_character_type == PLAYER)
+        {
+            clone->set_position(clone->get_position() - glm::vec3(penetration_x, 0, 0));
+            clone->set_velocity_x(0);
+        }
     }
 
     if (map->is_solid(right, &penetration_x, &penetration_y) && m_velocity.x > 0)
@@ -521,79 +472,37 @@ void const Entity::check_collision_x(Map* map)
         m_position.x -= penetration_x;
         m_velocity.x = 0;
         m_collided_right = true;
+        if (m_character_type == PLAYER)
+        {
+            clone->set_position(clone->get_position() + glm::vec3(penetration_x, 0, 0));
+            clone->set_velocity_x(0);
+        }
     }
     else if (map->is_solid(right_top, &penetration_x, &penetration_y) && m_velocity.x > 0)
     {
         m_position.x -= penetration_x;
         m_velocity.x = 0;
         m_collided_right = true;
+        if (m_character_type == PLAYER)
+        {
+            clone->set_position(clone->get_position() + glm::vec3(penetration_x, 0, 0));
+            clone->set_velocity_x(0);
+        }
     }
     else if (map->is_solid(right_bottom, &penetration_x, &penetration_y) && m_velocity.x > 0)
     {
         m_position.x -= penetration_x;
         m_velocity.x = 0;
         m_collided_right = true;
+        if (m_character_type == PLAYER)
+        {
+            clone->set_position(clone->get_position() + glm::vec3(penetration_x, 0, 0));
+            clone->set_velocity_x(0);
+        }
     }
 }
 
-bool const Entity::will_collide(glm::vec3 movement, Map* map) const {
-    glm::vec3 new_position = m_position + movement;
-
-    float x_offset = (m_width / 2) * 0.85f;
-    float y_offset = (m_width / 2) * 0.85f;
-
-    glm::vec3 left = glm::vec3(new_position.x - (m_width / 2), new_position.y, new_position.z);
-    glm::vec3 left_top = glm::vec3(new_position.x - (m_width / 2), new_position.y + x_offset, new_position.z);
-    glm::vec3 left_bottom = glm::vec3(new_position.x - (m_width / 2), new_position.y - x_offset, new_position.z);
-
-    glm::vec3 right = glm::vec3(new_position.x + (m_width / 2), new_position.y, new_position.z);
-    glm::vec3 right_top = glm::vec3(new_position.x + (m_width / 2), new_position.y + x_offset, new_position.z);
-    glm::vec3 right_bottom = glm::vec3(new_position.x + (m_width / 2), new_position.y - x_offset, new_position.z);
-
-    glm::vec3 top = glm::vec3(new_position.x, new_position.y + (m_height / 2), new_position.z);
-    glm::vec3 top_left = glm::vec3(new_position.x - y_offset, new_position.y + (m_height / 2), new_position.z);
-    glm::vec3 top_right = glm::vec3(new_position.x + y_offset, new_position.y + (m_height / 2), new_position.z);
-
-    glm::vec3 bottom = glm::vec3(new_position.x, new_position.y - (m_height / 2), new_position.z);
-    glm::vec3 bottom_left = glm::vec3(new_position.x - y_offset, new_position.y - (m_height / 2), new_position.z);
-    glm::vec3 bottom_right = glm::vec3(new_position.x + y_offset, new_position.y - (m_height / 2), new_position.z);
-
-    float penetration_x = 0;
-    float penetration_y = 0;
-
-    if (movement.x < 0) {
-        if (map->is_solid(left, &penetration_x, &penetration_y) ||
-            map->is_solid(left_top, &penetration_x, &penetration_y) ||
-            map->is_solid(left_bottom, &penetration_x, &penetration_y)) {
-            return true;
-        }
-    }
-    else if (movement.x > 0) {
-        if (map->is_solid(right, &penetration_x, &penetration_y) ||
-            map->is_solid(right_top, &penetration_x, &penetration_y) ||
-            map->is_solid(right_bottom, &penetration_x, &penetration_y)) {
-            return true;
-        }
-    }
-
-    if (movement.y < 0) {
-        if (map->is_solid(bottom, &penetration_x, &penetration_y) ||
-            map->is_solid(bottom_left, &penetration_x, &penetration_y) ||
-            map->is_solid(bottom_right, &penetration_x, &penetration_y)) {
-            return true;
-        }
-    }
-    else if (movement.y > 0) {
-        if (map->is_solid(top, &penetration_x, &penetration_y) ||
-            map->is_solid(top_left, &penetration_x, &penetration_y) ||
-            map->is_solid(top_right, &penetration_x, &penetration_y)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void Entity::update(float delta_time, Entity* player, Entity* collidable_entities, int collidable_entity_count, Map* map)
+void Entity::update(float delta_time, Entity* player, Entity* clone, Entity* collidable_entities, int collidable_entity_count, Map* map)
 {
     if (!m_is_active) return;
 
@@ -604,19 +513,21 @@ void Entity::update(float delta_time, Entity* player, Entity* collidable_entitie
         m_model_matrix = glm::scale(m_model_matrix, m_scale);
         return;
     }
+    else if (m_character_type == CLONE) {
+        if      (m_movement.x > 0 && player->get_collided_right())  m_movement.x = 0;
+        else if (m_movement.x < 0 && player->get_collided_left())   m_movement.x = 0;
+        else if (m_movement.y > 0 && player->get_collided_top())    m_movement.y = 0;
+		else if (m_movement.y < 0 && player->get_collided_bottom()) m_movement.y = 0;
+	}
     else if (m_entity_type == ENEMY) {
-        ai_activate(player);
+        ai_activate(clone);
     }
     else if (m_entity_type == TRAP) {
-        trap_activate(player, delta_time);
-    }
-    else if (m_obstacle_type == BLOCK && m_activate_obstacle) {
-        obstacle_activate();
-        m_activate_obstacle = false;
+        trap_activate(clone, delta_time);
     }
     else if (m_obstacle_type == PRESSURE_PLATE) {
         bool is_pressed = false;
-        if (check_collision(player)) is_pressed = true;
+        if (check_collision(clone)) is_pressed = true;
         for (int i = 0; i < collidable_entity_count; i++) {
             if (check_collision(&collidable_entities[i])) is_pressed = true;
         }
@@ -662,12 +573,11 @@ void Entity::update(float delta_time, Entity* player, Entity* collidable_entitie
     m_velocity += m_acceleration * delta_time;
 
     m_position.y += m_velocity.y * delta_time;
-    check_collision_y(collidable_entities, collidable_entity_count, map);
-    check_collision_y(map);
-
     m_position.x += m_velocity.x * delta_time;
+    check_collision_y(map);
+    check_collision_x(clone, map);
+    check_collision_y(collidable_entities, collidable_entity_count, map);
     check_collision_x(collidable_entities, collidable_entity_count, map);
-    check_collision_x(map);
 
     m_model_matrix = glm::mat4(1.0f);
     m_model_matrix = glm::translate(m_model_matrix, m_position);

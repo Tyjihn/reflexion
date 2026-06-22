@@ -40,7 +40,7 @@ struct GameState
     Mix_Chunk* door_mechanic_sfx = nullptr;
     
     // ————— POINTERS TO OTHER SCENES ————— //
-    int next_scene_id;
+    int next_scene_id = 0;
 };
 
 

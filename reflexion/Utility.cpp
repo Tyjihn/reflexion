@@ -1,12 +1,3 @@
-/**
-* Author: Lucy Zheng
-* Assignment: Reflexion
-* Date due: 05/02/2025, 2:00pm
-* I pledge that I have completed this assignment without
-* collaborating with anyone else, in conformance with the
-* NYU School of Engineering Policies and Procedures on
-* Academic Misconduct.
-**/
 #define LOG(argument) std::cout << argument << '\n'
 #define STB_IMAGE_IMPLEMENTATION
 #define NUMBER_OF_TEXTURES 1
@@ -15,7 +6,6 @@
 #define FONTBANK_SIZE      16
 
 #include "Utility.h"
-#include <SDL_image.h>
 #include "stb_image.h"
 
 GLuint Utility::load_texture(const char* filepath) {
@@ -36,8 +26,8 @@ GLuint Utility::load_texture(const char* filepath) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
     stbi_image_free(image);
     
