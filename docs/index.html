@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Reflexion</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        overflow: hidden;
+      }
+      /* The canvas fills the whole browser window. The game itself is rendered
+         with a 4:3 letterboxed viewport in C++, so the empty areas just show
+         the black background instead of stretching the game. */
+      canvas.emscripten {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        border: 0 none;
+        background-color: #000;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+
+    <script type='text/javascript'>
+      var Module = {
+        print: function (text) { console.log(text); },
+        printErr: function (text) { console.error(text); },
+        canvas: (function () {
+          var canvas = document.getElementById('canvas');
+          // Reload the page if the WebGL context is lost.
+          canvas.addEventListener('webglcontextlost', function (e) {
+            alert('WebGL context lost. Please reload the page.');
+            e.preventDefault();
+          }, false);
+          return canvas;
+        })(),
+        setStatus: function (text) { if (text) console.log('[status] ' + text); },
+        monitorRunDependencies: function () {}
+      };
+      // Give the canvas keyboard focus so WASD / arrow keys reach the game.
+      window.addEventListener('load', function () {
+        var c = document.getElementById('canvas');
+        c.focus();
+        c.addEventListener('click', function () { c.focus(); });
+      });
+    </script>
+    <script async type="text/javascript" src="index.js"></script>
+  </body>
+</html>
