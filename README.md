@@ -6,4 +6,4 @@ WebAssembly with [Emscripten](https://emscripten.org/), so it runs in the browse
 ## Play it
 
 Open the published link — no install needed:
-`https://tyjihn.github.io/reflexion`
+<https://tyjihn.github.io/reflexion>
